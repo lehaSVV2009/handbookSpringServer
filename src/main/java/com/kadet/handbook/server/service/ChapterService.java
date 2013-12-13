@@ -1,6 +1,7 @@
 package com.kadet.handbook.server.service;
 
-import com.kadet.handbook.server.entity.Chapter;
+
+import com.kadet.handbook.entity.Chapter;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface ChapterService {
 
     public void saveOrUpdate(Chapter chapter);
     public List<Chapter> findAll();
-    public boolean delete(Long id);
-    public Chapter findById(Long id);
+    public boolean delete(Integer id);
+    public Chapter findById(Integer id);
 
 }

@@ -1,7 +1,7 @@
 package com.kadet.handbook.server.dao.impl;
 
 import com.kadet.handbook.server.dao.ChapterDAO;
-import com.kadet.handbook.server.entity.Chapter;
+import com.kadet.handbook.entity.Chapter;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
  * Time: 4:11
  * To change this template use File | Settings | File Templates.
  */
-@Repository
-public class ChapterDAOImpl extends AbstractDAOImpl<Chapter, Long> implements ChapterDAO {
+@Repository("chapterDAO")
+public class ChapterDAOImpl extends AbstractDAOImpl<Chapter, Integer> implements ChapterDAO {
 
     protected ChapterDAOImpl () {
         super(Chapter.class);

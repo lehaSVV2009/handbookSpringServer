@@ -1,10 +1,9 @@
 package com.kadet.handbook.server.service.impl;
 
 import com.kadet.handbook.server.dao.ChapterDAO;
-import com.kadet.handbook.server.entity.Chapter;
+import com.kadet.handbook.entity.Chapter;
 import com.kadet.handbook.server.service.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,26 +21,22 @@ public class ChapterServiceImpl implements ChapterService {
     private ChapterDAO chapterDAO;
 
     @Override
-    @Transactional
     public void saveOrUpdate (Chapter chapter) {
         chapterDAO.saveOrUpdate(chapter);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Chapter> findAll () {
         return chapterDAO.findAll();
     }
 
     @Override
-    @Transactional
-    public boolean delete (Long id) {
+    public boolean delete (Integer id) {
         return chapterDAO.delete(id);
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Chapter findById (Long id) {
+    public Chapter findById (Integer id) {
         return chapterDAO.findById(id);
     }
 

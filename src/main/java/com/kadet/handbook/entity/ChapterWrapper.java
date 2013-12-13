@@ -1,4 +1,4 @@
-package com.kadet.handbook.server.entity;
+package com.kadet.handbook.entity;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;

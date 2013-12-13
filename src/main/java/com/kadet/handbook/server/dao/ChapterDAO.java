@@ -1,7 +1,7 @@
 package com.kadet.handbook.server.dao;
 
 
-import com.kadet.handbook.server.entity.Chapter;
+import com.kadet.handbook.entity.Chapter;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +10,6 @@ import com.kadet.handbook.server.entity.Chapter;
  * Time: 19:33
  * To change this template use File | Settings | File Templates.
  */
-public interface ChapterDAO extends AbstractDAO<Chapter, Long> {
+public interface ChapterDAO extends AbstractDAO<Chapter, Integer> {
 
 }

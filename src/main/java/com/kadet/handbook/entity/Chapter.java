@@ -1,9 +1,5 @@
-package com.kadet.handbook.server.entity;
+package com.kadet.handbook.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -14,13 +10,13 @@ import java.io.Serializable;
  * Time: 9:15 PM
  * To change this template use File | Settings | File Templates.
  */
-@Entity
+//@Entity
 @XmlRootElement
 public class Chapter implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String title;
     private String text;
 
@@ -32,11 +28,11 @@ public class Chapter implements Serializable {
         this.text = text;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

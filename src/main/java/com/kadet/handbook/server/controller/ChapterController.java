@@ -1,13 +1,12 @@
 package com.kadet.handbook.server.controller;
 
-import com.kadet.handbook.server.entity.Chapter;
-import com.kadet.handbook.server.entity.ChapterWrapper;
+import com.kadet.handbook.entity.*;
 import com.kadet.handbook.server.service.ChapterService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +20,12 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-@Controller
+@Controller("chapterController")
 @RequestMapping(value = "/publisher")
 public class ChapterController {
+
+    protected static Logger logger
+            = Logger.getLogger(ChapterController.class.getName());
 
     @Autowired
     private ChapterService chapterService;
@@ -35,13 +37,15 @@ public class ChapterController {
      * @param id id of chapter
      * @return xml of chapter
      */
-    @RequestMapping(value = "/chapter/{id}", produces = {MediaType.APPLICATION_XML_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(value = "/chapter/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    @Transactional(readOnly = true)
     public
     @ResponseBody
-    Chapter getChapterById (@PathVariable Long id) {
+    Chapter getChapterById (@PathVariable Integer id) {
+
+        logger.debug("Find Chapter by id = " + id);
         return chapterService.findById(id);
+
     }
 
     /**
@@ -54,9 +58,11 @@ public class ChapterController {
             method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @Transactional(readOnly = false)
-    public void saveBook(@RequestBody Chapter chapter) {
+    public void saveChapter(@RequestBody Chapter chapter) {
+
         chapterService.saveOrUpdate(chapter);
+        logger.debug("Save new chapter: " + chapter);
+
     }
 
     /**
@@ -67,9 +73,11 @@ public class ChapterController {
      */
     @RequestMapping(value = "/chapter/{id}",
             method = RequestMethod.DELETE)
-    @Transactional(readOnly = false)
-    public void removeBook(@PathVariable Long id) {
+    public void removeChapter(@PathVariable Integer id) {
+
         chapterService.delete(id);
+        logger.debug("Remove chapter with id = " + id);
+
     }
 
     /**
@@ -82,10 +90,13 @@ public class ChapterController {
     @ResponseStatus(HttpStatus.OK)
     public
     @ResponseBody
-    ChapterWrapper allBooks() {
+    ChapterWrapper allChapters() {
 
-        List<Chapter> chapterList = chapterService.findAll();
+        List<Chapter> chapterList
+                = chapterService.findAll();
+        logger.debug("Get chapters. Chapters number: " + chapterList.size());
         return new ChapterWrapper(chapterList);
+
     }
 
     /**
@@ -97,8 +108,10 @@ public class ChapterController {
     @RequestMapping(value = "/chapter",
             method = RequestMethod.PUT,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    @Transactional(readOnly = false)
-    public void updateBook(@RequestBody Chapter chapter) {
-        chapterService.saveOrUpdate(chapter);
+    public void updateChapter(@RequestBody Chapter chapter) {
+
+       chapterService.saveOrUpdate(chapter);
+        logger.debug("Update chapter: " + chapter);
+
     }
 }

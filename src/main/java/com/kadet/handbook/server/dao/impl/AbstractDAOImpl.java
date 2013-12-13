@@ -1,11 +1,10 @@
 package com.kadet.handbook.server.dao.impl;
 
 import com.kadet.handbook.server.dao.AbstractDAO;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kadet.handbook.entity.Chapter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,39 +20,65 @@ public abstract class AbstractDAOImpl<E, I extends Serializable> implements Abst
 
     protected AbstractDAOImpl(Class<E> entityClass) {
         this.entityClass = entityClass;
+
+        this.list = new ArrayList<E>();
+        fillList(list);
     }
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    private List<E> list;
 
-    public Session getSession () {
-        return sessionFactory.getCurrentSession();
+    private void fillList (List<E> list) {
+        for (int i = 0; i < 10; ++i) {
+            list.add(
+                    (E) createChapter(i, "title" + i, "text" + i)
+            );
+        }
     }
+
+    private Chapter createChapter (Integer id, String title, String text) {
+        Chapter chapter
+                = new Chapter(title, text);
+        chapter.setId(id);
+        return chapter;
+    }
+
+//    @Autowired
+//    private SessionFactory sessionFactory;
+
+//    public Session getSession () {
+//        return sessionFactory.getCurrentSession();
+//    }
 
     @Override
     public E findById(I id) {
-        return (E) getSession().get(entityClass, id);
+        Integer integerId = (Integer) id;
+        return list.get(integerId);
+//        return (E) getSession().get(entityClass, id);
     }
 
     @Override
     public void saveOrUpdate(E e) {
-        getSession().saveOrUpdate(e);
+        list.add(e);
+//        getSession().saveOrUpdate(e);
     }
 
     @Override
     public boolean delete(I id) {
-        E ent = (E) getSession().load(entityClass, id);
-        if (ent != null) {
-            getSession().delete(ent);
-            return true;
-        }
-        return false;
+        Integer integerId = (Integer) id;
+        return list.remove(integerId);
+//        E ent = (E) getSession().load(entityClass, id);
+//        if (ent != null) {
+//            getSession().delete(ent);
+//            return true;
+//        }
+//        return false;
     }
 
     @Override
     public List<E> findAll () {
-        return getSession()
-                .createCriteria(entityClass)
-                .list();
+        return list;
+//        return getSession()
+//                .createCriteria(entityClass)
+//                .list();
     }
 }
