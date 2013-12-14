@@ -52,7 +52,12 @@ public abstract class AbstractDAOImpl<E, I extends Serializable> implements Abst
     @Override
     public E findById(I id) {
         Integer integerId = (Integer) id;
-        return list.get(integerId);
+        for (E e : list) {
+            if (((Chapter)e).getId() == id) {
+                return e;
+            }
+        }
+        return null;
 //        return (E) getSession().get(entityClass, id);
     }
 
@@ -65,13 +70,18 @@ public abstract class AbstractDAOImpl<E, I extends Serializable> implements Abst
     @Override
     public boolean delete(I id) {
         Integer integerId = (Integer) id;
-        return list.remove(integerId);
+        for (E e : list) {
+            if (((Chapter)e).getId() == id) {
+                list.remove(e);
+            }
+        }
 //        E ent = (E) getSession().load(entityClass, id);
 //        if (ent != null) {
 //            getSession().delete(ent);
 //            return true;
 //        }
 //        return false;
+        return true;
     }
 
     @Override
