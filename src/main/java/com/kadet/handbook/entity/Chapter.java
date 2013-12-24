@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 //@Entity
 @XmlRootElement
-public class Chapter implements Serializable {
+public class Chapter implements Serializable, Entity<Integer> {
 
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)

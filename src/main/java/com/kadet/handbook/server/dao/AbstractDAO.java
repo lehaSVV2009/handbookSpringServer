@@ -12,8 +12,9 @@ import java.util.List;
  */
 public interface AbstractDAO<E, I extends Serializable> {
 
+    boolean save (E e);
     E findById(I id);
-    void saveOrUpdate(E e);
+    boolean update(E e);
     boolean delete(I id);
     List<E> findAll();
 }

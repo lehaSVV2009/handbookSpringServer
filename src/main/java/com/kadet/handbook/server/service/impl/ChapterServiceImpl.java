@@ -21,8 +21,13 @@ public class ChapterServiceImpl implements ChapterService {
     private ChapterDAO chapterDAO;
 
     @Override
-    public void saveOrUpdate (Chapter chapter) {
-        chapterDAO.saveOrUpdate(chapter);
+    public boolean save(Chapter chapter) {
+        return chapterDAO.save(chapter);
+    }
+
+    @Override
+    public boolean update(Chapter chapter) {
+        return chapterDAO.update(chapter);
     }
 
     @Override

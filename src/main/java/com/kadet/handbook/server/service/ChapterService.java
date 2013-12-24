@@ -6,7 +6,6 @@ import com.kadet.handbook.entity.Chapter;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
  * User: admin
  * Date: 29.08.13
  * Time: 3:31
@@ -14,7 +13,8 @@ import java.util.List;
  */
 public interface ChapterService {
 
-    public void saveOrUpdate(Chapter chapter);
+    public boolean save(Chapter chapter);
+    public boolean update (Chapter chapter);
     public List<Chapter> findAll();
     public boolean delete(Integer id);
     public Chapter findById(Integer id);

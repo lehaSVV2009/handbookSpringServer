@@ -61,8 +61,8 @@ public class ChapterController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public void saveChapter(@RequestBody Chapter chapter) {
 
-        chapterService.saveOrUpdate(chapter);
-        logger.debug("Save new chapter: " + chapter);
+        boolean result = chapterService.save(chapter);
+        logger.debug("Save new chapter: " + chapter + ", save success: " + result);
 
     }
 
@@ -76,8 +76,8 @@ public class ChapterController {
             method = RequestMethod.DELETE)
     public void removeChapter(@PathVariable Integer id) {
 
-        chapterService.delete(id);
-        logger.debug("Remove chapter with id = " + id);
+        boolean result = chapterService.delete(id);
+        logger.debug("Remove chapter with id = " + id + ", remove success: " + result);
 
     }
 
@@ -111,8 +111,8 @@ public class ChapterController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public void updateChapter(@RequestBody Chapter chapter) {
 
-       chapterService.saveOrUpdate(chapter);
-        logger.debug("Update chapter: " + chapter);
+        boolean result = chapterService.update(chapter);
+        logger.debug("Update chapter: " + chapter + ", update success: " + result);
 
     }
 }
